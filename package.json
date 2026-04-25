@@ -1,0 +1,9 @@
+{
+  "name": "devops-hola-mundo-docker",
+  "version": "1.0.0",
+  "description": "Aplicación web Hola Mundo para práctica DevOps con Docker",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  }
+}
