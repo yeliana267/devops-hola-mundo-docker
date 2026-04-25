@@ -1,6 +1,6 @@
 const http = require("http");
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
   res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
@@ -11,139 +11,188 @@ const server = http.createServer((req, res) => {
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="Aplicación Hola Mundo para práctica de DevOps con Docker, GitHub y GitHub Pages." />
       <title>Hola Mundo DevOps</title>
+
       <style>
+        :root {
+          --bg: #0b0b12;
+          --bg-soft: #151523;
+          --card: rgba(255, 255, 255, 0.08);
+          --border: rgba(255, 255, 255, 0.15);
+          --text: #f5f3ff;
+          --text-soft: #d4d4d8;
+          --primary: #a855f7;
+          --primary-dark: #7e22ce;
+          --focus: #c084fc;
+          --shadow: rgba(168, 85, 247, 0.25);
+        }
+
         * {
-          margin: 0;
-          padding: 0;
           box-sizing: border-box;
         }
 
         body {
-          font-family: Arial, Helvetica, sans-serif;
+          margin: 0;
           min-height: 100vh;
+          font-family: Arial, Helvetica, sans-serif;
+          background:
+            radial-gradient(circle at top left, rgba(168, 85, 247, 0.18), transparent 30%),
+            radial-gradient(circle at bottom right, rgba(126, 34, 206, 0.16), transparent 30%),
+            linear-gradient(135deg, var(--bg), var(--bg-soft));
+          color: var(--text);
           display: flex;
-          justify-content: center;
           align-items: center;
-          background: linear-gradient(135deg, #050505, #12061f, #1a0b2e);
-          color: white;
-          overflow: hidden;
+          justify-content: center;
+          padding: 24px;
         }
 
-        .background-glow {
-          position: absolute;
-          width: 350px;
-          height: 350px;
-          border-radius: 50%;
-          background: rgba(168, 85, 247, 0.18);
-          filter: blur(90px);
-          top: 10%;
-          left: 15%;
-        }
-
-        .background-glow.two {
-          top: 55%;
-          left: 65%;
-          background: rgba(139, 92, 246, 0.15);
+        .container {
+          width: 100%;
+          max-width: 760px;
         }
 
         .card {
-          position: relative;
-          z-index: 1;
-          width: 90%;
-          max-width: 700px;
-          padding: 50px 35px;
-          text-align: center;
+          background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 24px;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          backdrop-filter: blur(14px);
-          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+          padding: 40px 28px;
+          text-align: center;
+          backdrop-filter: blur(10px);
+          box-shadow: 0 10px 30px var(--shadow);
         }
 
         .badge {
           display: inline-block;
-          padding: 8px 16px;
-          margin-bottom: 18px;
+          margin-bottom: 16px;
+          padding: 8px 14px;
           border-radius: 999px;
-          background: rgba(168, 85, 247, 0.16);
-          color: #d8b4fe;
-          font-size: 14px;
-          letter-spacing: 1px;
-          text-transform: uppercase;
+          background: rgba(168, 85, 247, 0.14);
+          color: #e9d5ff;
+          font-size: 0.9rem;
+          font-weight: bold;
+          letter-spacing: 0.4px;
         }
 
         h1 {
-          font-size: 3rem;
-          margin-bottom: 16px;
-          color: #f5f3ff;
-          text-shadow: 0 0 20px rgba(168, 85, 247, 0.35);
+          margin: 0 0 16px;
+          font-size: clamp(2rem, 5vw, 3rem);
+          line-height: 1.2;
         }
 
         .highlight {
-          color: #c084fc;
+          color: var(--primary);
         }
 
         p {
-          font-size: 1.1rem;
+          margin: 0 auto 24px;
+          max-width: 580px;
+          color: var(--text-soft);
+          font-size: 1rem;
           line-height: 1.7;
-          color: #d4d4d8;
-          max-width: 560px;
-          margin: 0 auto 28px;
         }
 
-        .button {
+        .actions {
+          display: flex;
+          justify-content: center;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-bottom: 24px;
+        }
+
+        .btn {
           display: inline-block;
-          padding: 14px 28px;
-          border-radius: 12px;
           text-decoration: none;
+          padding: 14px 22px;
+          border-radius: 12px;
           font-weight: bold;
-          color: white;
-          background: linear-gradient(90deg, #7e22ce, #a855f7);
-          box-shadow: 0 0 20px rgba(168, 85, 247, 0.35);
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .button:hover {
+        .btn-primary {
+          background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+          color: white;
+          box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        .btn-secondary {
+          background: transparent;
+          color: var(--text);
+          border: 1px solid var(--border);
+        }
+
+        .btn:hover {
           transform: translateY(-2px);
-          box-shadow: 0 0 28px rgba(168, 85, 247, 0.55);
+        }
+
+        .btn:focus-visible,
+        a:focus-visible {
+          outline: 3px solid var(--focus);
+          outline-offset: 3px;
+        }
+
+        .info {
+          margin-top: 8px;
+          font-size: 0.95rem;
+          color: #b3b3bd;
         }
 
         .footer {
-          margin-top: 24px;
-          font-size: 0.95rem;
+          margin-top: 20px;
+          font-size: 0.9rem;
           color: #a1a1aa;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
           .card {
-            padding: 35px 20px;
+            padding: 30px 20px;
           }
 
-          h1 {
-            font-size: 2.2rem;
+          .actions {
+            flex-direction: column;
           }
 
-          p {
-            font-size: 1rem;
+          .btn {
+            width: 100%;
           }
         }
       </style>
     </head>
-    <body>
-      <div class="background-glow"></div>
-      <div class="background-glow two"></div>
 
-      <div class="card">
-        <div class="badge">Práctica DevOps</div>
-        <h1>Hola Mundo <span class="highlight">Docker</span></h1>
-        <p>
-          Aplicación web sencilla creada con Node.js y desplegada dentro de un
-          contenedor Docker, con un diseño moderno en tonos negros y morados.
-        </p>
-        <a href="#" class="button">Proyecto en ejecución</a>
-        <div class="footer">Hecho por Yeliana</div>
-      </div>
+    <body>
+      <main class="container">
+        <section class="card" aria-labelledby="titulo-principal">
+          <div class="badge">Práctica DevOps</div>
+
+          <h1 id="titulo-principal">
+            Hola Mundo <span class="highlight">con Docker</span>
+          </h1>
+
+          <p>
+            Esta es una aplicación web sencilla creada para demostrar el ciclo básico de DevOps:
+            desarrollo de una app, creación de imagen Docker, publicación del código en GitHub,
+            subida de la imagen a Docker Hub y despliegue de la página en GitHub Pages.
+          </p>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="#">
+              Aplicación en ejecución
+            </a>
+
+            <a class="btn btn-secondary" href="https://github.com/yeliana267/devops-hola-mundo-docker" target="_blank" rel="noopener noreferrer">
+              Ver repositorio
+            </a>
+          </div>
+
+          <div class="info">
+            Diseño oscuro con detalles morados, responsive y accesible.
+          </div>
+
+          <div class="footer">
+            Hecho por Yeliana
+          </div>
+        </section>
+      </main>
     </body>
     </html>
   `);
