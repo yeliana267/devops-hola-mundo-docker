@@ -165,7 +165,7 @@ const server = http.createServer((req, res) => {
           <div class="badge">Práctica DevOps</div>
 
           <h1 id="titulo-principal">
-            Hola Mundo <span class="highlight">con Docker</span>
+            Hola Mundo <span class="highlight">con CI/CD</span>
           </h1>
 
           <p>
